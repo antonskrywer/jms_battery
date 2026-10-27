@@ -1,0 +1,30 @@
+Package: jmsbattery
+Title: JMS Test Battery (psychTestR)
+Version: 0.1.0
+Authors@R: person("Anton", "Schreiber", email = "anton.schreiber@uni-hamburg.de", role = c("aut", "cre"))
+Description: psychTestR test battery for the JMS study: demographics (DEG),
+    rhythm (RAT) and beat perception (CA-BAT), working memory (JAJ), Gold-MSI
+    short version (GMS) and musical growth mindset (TOM), followed by an
+    optional block (GRT, CCM, MPT) that participants can skip.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends:
+    R (>= 4.0.0)
+Imports:
+    psychTestR (>= 2.22.0),
+    psyquest (>= 1.6.1),
+    RAT (>= 0.1.6),
+    JAJ (>= 0.1.7),
+    cabat (>= 0.12.1),
+    mpt (>= 0.14.0),
+    shiny,
+    shinythemes
+Remotes:
+    pmcharrison/psychTestR,
+    klausfrieler/psyquest,
+    klausfrieler/RAT,
+    klausfrieler/JAJ,
+    pmcharrison/cabat,
+    pmcharrison/mpt
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
