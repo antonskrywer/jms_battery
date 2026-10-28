@@ -56,6 +56,21 @@ jms_battery(num_items = c(RAT = 14, BAT = 20, JAJ = 8, MPT = 20))
 Für Shiny Server liegt `app.R` im Repo-Root. Ergebnisse landen in `output/results/`
 (nicht versioniert).
 
+## Ergebnisse einlesen
+
+```r
+library(jmsbattery)
+d <- read_jms_results("output/results")                    # DEG, Abilities, GMS
+d <- read_jms_results("output/results", complete_only = TRUE,
+                      scales = c("GMS", "TOM", "GRT", "CCM"))
+```
+
+Eine Zeile pro Sitzung. Spalten: `p_id`, `complete`, `time_started`,
+`time_last_saved`, `file`, `DEG.*` (Geschlecht, Geburtsmonat/-jahr, Alter in
+Monaten und Jahren zum Testzeitpunkt, Nationalität, Erst-/Zweitsprache),
+`RAT/BAT/JAJ/MPT.ability`, `GMS.*` (alle Subskalen) und `extras_choice`.
+Nicht erreichte Module sind `NA`.
+
 ## Hinweise
 
 - MIQ ist nicht enthalten (kein verfügbares Paket).

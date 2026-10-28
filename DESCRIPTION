@@ -18,7 +18,9 @@ Imports:
     cabat (>= 0.12.1),
     mpt (>= 0.14.0),
     shiny,
-    shinythemes
+    shinythemes,
+    purrr,
+    tibble
 Remotes:
     pmcharrison/psychTestR,
     klausfrieler/psyquest,
