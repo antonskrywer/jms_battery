@@ -11,6 +11,7 @@ jms_battery(
   extras = c("GRT", "CCM", "MPT"),
   num_items = jms_num_items,
   take_training = TRUE,
+  dmt_feedback = TRUE,
   debug = FALSE,
   language = "de",
   ...
@@ -26,9 +27,13 @@ jms_battery(
 \item{extras}{Character vector of optional modules to offer, any of
 \code{"GRT"}, \code{"CCM"}, \code{"MPT"}. Use \code{character()} to drop the optional block.}
 
-\item{num_items}{Named integer vector with item numbers for RAT, BAT, JAJ, MPT.}
+\item{num_items}{Named integer vector with item numbers for RAT, BAT, JAJ,
+DMT, MPT.}
 
-\item{take_training}{Whether the adaptive tests show their practice items.}
+\item{take_training}{Whether the tests show their practice items.}
+
+\item{dmt_feedback}{Whether DMT trials allow up to four attempts with
+feedback (\code{TRUE}) or a single attempt (\code{FALSE}).}
 
 \item{debug}{If \code{TRUE}, every adaptive test runs with a single item and
 without training, for quickly clicking through the battery.}
@@ -39,7 +44,8 @@ without training, for quickly clicking through the battery.}
 }
 \description{
 Core part: DEG (age, gender, nationality, languages), RAT, BAT (CA-BAT),
-JAJ, GMS (Gold-MSI short version) and TOM. Afterwards participants are asked
+JAJ, DMT (Drum Machine Test), GMS (Gold-MSI short version) and TOM.
+Afterwards participants are asked
 whether they have time left for the optional block (GRT, CCM, MPT).
 Results are saved after every module, so stopping during the optional block
 loses nothing; the session is marked complete once the core part is done.

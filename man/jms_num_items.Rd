@@ -3,14 +3,14 @@
 \docType{data}
 \name{jms_num_items}
 \alias{jms_num_items}
-\title{Item numbers of the adaptive tests}
+\title{Item numbers of the tests}
 \format{
-An object of class \code{integer} of length 4.
+An object of class \code{integer} of length 5.
 }
 \usage{
 jms_num_items
 }
 \description{
-Item numbers of the adaptive tests
+For DMT this is the number of main trials.
 }
 \keyword{datasets}

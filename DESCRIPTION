@@ -9,7 +9,8 @@ Description: psychTestR test battery for the JMS study: demographics (DEG),
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.0.0),
+    DMT (>= 0.2.1)
 Imports:
     psychTestR (>= 2.22.0),
     psyquest (>= 1.6.1),
@@ -27,6 +28,7 @@ Remotes:
     klausfrieler/RAT,
     klausfrieler/JAJ,
     pmcharrison/cabat,
-    pmcharrison/mpt
+    pmcharrison/mpt,
+    antonskrywer/DMT
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

@@ -14,8 +14,9 @@ psychTestR-Testbatterie für die JMS-Studie (R-Paket `jmsbattery`, Sprache: Deut
 | 4 | RAT | Rhythm Ability Test, 14 Items | RAT |
 | 5 | BAT | Computerised Beat Alignment Test, 20 Items | cabat |
 | 6 | JAJ | Jack & Jill Working Memory, 8 Items | JAJ |
-| 7 | GMS | Gold-MSI, Kurzversion (`short_version = TRUE`, 29 Items) | psyquest |
-| 8 | TOM | Musical Growth Mindset, 12 Items | psyquest |
+| 7 | DMT | Drum Machine Test, 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
+| 8 | GMS | Gold-MSI, Kurzversion (`short_version = TRUE`, 29 Items) | psyquest |
+| 9 | TOM | Musical Growth Mindset, 12 Items | psyquest |
 
 Nach TOM ist die Sitzung als `complete=true` gespeichert.
 
@@ -38,7 +39,8 @@ Die adaptiven Tests zeigen ihre Übungsitems, aber kein Score-Feedback.
 ```r
 remotes::install_github(c("pmcharrison/psychTestR", "klausfrieler/psyquest",
                           "klausfrieler/RAT", "klausfrieler/JAJ",
-                          "pmcharrison/cabat", "pmcharrison/mpt"))
+                          "pmcharrison/cabat", "pmcharrison/mpt",
+                          "antonskrywer/DMT"))
 devtools::install()   # im Repo-Verzeichnis
 ```
 
@@ -50,7 +52,8 @@ jms_battery(admin_password = "...")          # lokal: shiny::runApp(jms_battery(
 jms_battery(debug = TRUE)                     # je 1 Item, ohne Training, zum Durchklicken
 jms_battery(extras = c("MPT"))                # nur MPT als Zusatz
 jms_battery(extras = character())             # ohne Zusatzteil
-jms_battery(num_items = c(RAT = 14, BAT = 20, JAJ = 8, MPT = 20))
+jms_battery(num_items = c(RAT = 14, BAT = 20, JAJ = 8, DMT = 5, MPT = 20))
+jms_battery(dmt_feedback = FALSE)             # DMT mit nur einem Versuch pro Trial
 ```
 
 Für Shiny Server liegt `app.R` im Repo-Root. Ergebnisse landen in `output/results/`
@@ -71,7 +74,19 @@ Monaten und Jahren zum Testzeitpunkt, Nationalität, Erst-/Zweitsprache),
 `RAT/BAT/JAJ/MPT.ability`, `GMS.*` (alle Subskalen) und `extras_choice`.
 Nicht erreichte Module sind `NA`.
 
+Der DMT hat keinen Ability-Wert. Seine Trial-Daten stehen in `r$DMT` und
+lassen sich pro Person mit dem DMT-Paket in Langformat bringen:
+
+```r
+r <- readRDS("output/results/....rds")
+DMT::DMT_results_to_long(r$DMT, p_id = r$session$p_id)   # eine Zeile pro Versuch
+```
+
 ## Hinweise
 
 - MIQ ist nicht enthalten (kein verfügbares Paket).
+- `DMT()` ist als eigenständiger Test gebaut. `dmt_module()` entfernt seine
+  Schlussseite und seine Abschlussspeicherung und legt ihn in einen eigenen
+  Ergebnisabschnitt `DMT`. DMT steht unter `Depends`, weil `DMT()` seine
+  Daten nur findet, wenn das Paket geladen ist.
 - Das Standard-Admin-Passwort `jms_admin` vor dem Einsatz ändern.
