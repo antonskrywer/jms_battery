@@ -56,8 +56,10 @@ jms_battery(num_items = c(RAT = 14, BAT = 20, JAJ = 8, DMT = 5, MPT = 20))
 jms_battery(dmt_feedback = FALSE)             # DMT mit nur einem Versuch pro Trial
 ```
 
-Für Shiny Server liegt `app.R` im Repo-Root. Ergebnisse landen in `output/results/`
-(nicht versioniert).
+Für Shiny Server liegt `app.R` im Repo-Root. Sie liest das Admin-Passwort aus
+der Umgebungsvariable `JMS_ADMIN_PASSWORD` (auf dem Server in
+`/home/shiny/.Renviron`) und startet ohne sie nicht. Ergebnisse landen in
+`output/results/` (nicht versioniert).
 
 ## Ergebnisse einlesen
 
@@ -88,4 +90,5 @@ DMT::DMT_results_to_long(r$DMT, p_id = r$session$p_id)   # eine Zeile pro Versuc
 - Der DMT läuft mit `with_final_page = FALSE` (ab DMT 0.2.2), damit er die
   Batterie nicht beendet. `dmt_module()` legt ihn in einen eigenen
   Ergebnisabschnitt `DMT`.
-- Das Standard-Admin-Passwort `jms_admin` vor dem Einsatz ändern.
+- Das Standard-Admin-Passwort `jms_admin` von `jms_battery()` gilt nur beim
+  lokalen Testen; `app.R` nutzt immer `JMS_ADMIN_PASSWORD`.
