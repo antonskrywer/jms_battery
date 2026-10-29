@@ -85,8 +85,7 @@ DMT::DMT_results_to_long(r$DMT, p_id = r$session$p_id)   # eine Zeile pro Versuc
 ## Hinweise
 
 - MIQ ist nicht enthalten (kein verfügbares Paket).
-- `DMT()` ist als eigenständiger Test gebaut. `dmt_module()` entfernt seine
-  Schlussseite und seine Abschlussspeicherung und legt ihn in einen eigenen
-  Ergebnisabschnitt `DMT`. DMT steht unter `Depends`, weil `DMT()` seine
-  Daten nur findet, wenn das Paket geladen ist.
+- Der DMT läuft mit `with_final_page = FALSE` (ab DMT 0.2.2), damit er die
+  Batterie nicht beendet. `dmt_module()` legt ihn in einen eigenen
+  Ergebnisabschnitt `DMT`.
 - Das Standard-Admin-Passwort `jms_admin` vor dem Einsatz ändern.

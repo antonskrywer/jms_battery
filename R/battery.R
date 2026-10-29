@@ -115,22 +115,12 @@ jms_battery <- function(title = "JMS Testbatterie",
   )
 }
 
-# DMT() is built as a standalone test: it ends by saving with complete = TRUE
-# and showing its own final page, which would mark the session complete too
-# early and stop the battery. Both elements are removed here; the checks make
-# this fail loudly if a DMT update changes how the timeline ends.
-# DMT() also opens no results section of its own, so without the module its
+# DMT() opens no results section of its own, so without the module its
 # answers would be filed under the preceding test (JAJ).
 dmt_module <- function(language, ...) {
-  elts <- DMT::DMT(language = language, with_id = FALSE, ...)$get(language)
-  n <- length(elts)
-  last_is_final <- methods::is(elts[[n]], "page") && isTRUE(elts[[n]]@final)
-  prev_saves <- methods::is(elts[[n - 1]], "code_block") &&
-    any(grepl("save_results_to_disk", deparse(elts[[n - 1]]@fun)))
-  if (!last_is_final || !prev_saves) {
-    stop("Unexpected end of the DMT timeline; check dmt_module() against the installed DMT version.")
-  }
-  de_timeline(psychTestR::begin_module("DMT"),
-              elts[seq_len(n - 2)],
-              psychTestR::end_module())
+  psychTestR::join(
+    de_timeline(psychTestR::begin_module("DMT")),
+    DMT::DMT(language = language, with_id = FALSE, with_final_page = FALSE, ...),
+    de_timeline(psychTestR::end_module())
+  )
 }

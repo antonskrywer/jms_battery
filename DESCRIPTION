@@ -4,14 +4,15 @@ Version: 0.1.0
 Authors@R: person("Anton", "Schreiber", email = "anton.schreiber@uni-hamburg.de", role = c("aut", "cre"))
 Description: psychTestR test battery for the JMS study: demographics (DEG),
     rhythm (RAT) and beat perception (CA-BAT), working memory (JAJ), Gold-MSI
-    short version (GMS) and musical growth mindset (TOM), followed by an
-    optional block (GRT, CCM, MPT) that participants can skip.
+    short version (GMS), musical growth mindset (TOM) and the Drum Machine
+    Test (DMT), followed by an optional block (GRT, CCM, MPT) that
+    participants can skip.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:
-    R (>= 4.0.0),
-    DMT (>= 0.2.1)
+    R (>= 4.0.0)
 Imports:
+    DMT (>= 0.2.2),
     psychTestR (>= 2.22.0),
     psyquest (>= 1.6.1),
     RAT (>= 0.1.6),
