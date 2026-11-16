@@ -194,12 +194,16 @@ mark_finished <- function() {
 # column, so that the parents are addressed with "Sie" although the battery
 # runs in informal German. The two education items refer to the child's
 # parents, not to the parents of the person answering.
+# Only the SES keys and psyquest's general keys (not belonging to another
+# questionnaire) in German are kept: rebuilding the whole psyquest dict with
+# all languages takes several minutes.
 ses_parent_dict <- function() {
   d <- psyquest::psyquest_dict$as.data.frame()
+  d <- d[!grepl("^T[A-Z0-9]{3}_", d$key) | grepl("^TSES_", d$key), c("key", "de", "de_f")]
   ses <- grepl("^TSES_", d$key)
   d$de[ses] <- d$de_f[ses]
   d$de[d$key == "TSES_0001_PROMPT"] <- "Welchen höchsten Bildungsabschluss hat die Mutter Ihres Kindes?"
   d$de[d$key == "TSES_0002_PROMPT"] <- "Welchen höchsten Bildungsabschluss hat der Vater Ihres Kindes?"
   d$de[ses] <- gsub("  +", " ", d$de[ses])
-  psychTestR::i18n_dict$new(d)
+  psychTestR::i18n_dict$new(d[, c("key", "de")])
 }
