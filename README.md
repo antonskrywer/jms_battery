@@ -14,7 +14,7 @@ gehören nicht zur App.
 |---|-------|--------|-------|
 | 1 | Begrüßung, Teilnahmecode | 8 Ziffern mit Prüfziffer (siehe unten) | |
 | 2 | DEG | Alter (Monat/Jahr), Geschlecht, Land der prägenden Jahre, Erst- und Zweitsprache | psyquest |
-| 3 | INS | Instrument (freie Angabe), Unterrichtsbeginn (Monat/Jahr) | eigene Seiten |
+| 3 | INS | Hauptinstrument (freie Angabe); weitere Instrumente ja/nein, wenn ja bis zu drei (das erste Pflicht); Unterrichtsbeginn auf dem Hauptinstrument (Monat/Jahr) | eigene Seiten |
 | 4 | Lautstärkeeinstellung | | |
 | 5 | DMT | Drum Machine Test, 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
 | 6 | JAJ | Jack & Jill (Arbeitsgedächtnis), 8 Items | JAJ |
@@ -29,9 +29,9 @@ ausfüllen kann.
 
 | # | Modul | Inhalt | Paket |
 |---|-------|--------|-------|
-| 10 | UEB | Unterricht auf dem Instrument in Minuten pro Woche, getrennt nach Einzel- und Ensembleunterricht | eigene Seite |
+| 10 | UEB | Unterricht auf dem Hauptinstrument in Minuten pro Woche, getrennt nach Einzel- und Ensembleunterricht | eigene Seite |
 | 11 | CCM | Concurrent Musical Activities (inkl. Musizierzeit pro Woche) | psyquest |
-| 12 | GMS | Gold-MSI, Kurzversion | psyquest |
+| 12 | GMS | Gold-MSI, Kurzversion ohne Item 32 („Das Instrument, welches ich am besten spiele“), also 28 Items; die Subskala „Instrument“ entfällt | psyquest |
 | 13 | TOM | Theory of Musicality | psyquest |
 | 14 | TPI | Ten Item Personality Inventory, Selbstauskunft | psyquest |
 | 15 | MHE | Musical Home Environment | psyquest |
@@ -121,7 +121,8 @@ d <- read_jms_results("output/results", complete_only = TRUE, scales = c("GMS", 
 Eine Zeile pro Sitzung. Spalten: `p_id`, `valid_id`, `complete`, `tests_complete`,
 `time_started`, `time_last_saved`, `num_restarts`, `file`, `DEG.*` (Geschlecht,
 Geburtsmonat/-jahr, Alter in Monaten und Jahren, Land der prägenden Jahre,
-Erst-/Zweitsprache), `INS.*` (Instrument, Unterrichtsbeginn), `UEB.*` (Minuten pro
+Erst-/Zweitsprache), `INS.*` (Hauptinstrument, weitere Instrumente `INS.instrument_2` bis
+`_4`, Anzahl `INS.num_instruments`, Unterrichtsbeginn), `UEB.*` (Minuten pro
 Woche einzeln/Ensemble), `JAJ/MIQ/BAT/MDT.ability` und die Subskalen von CCM, GMS,
 TOM, TPI, MHE und SES. Nicht erreichte Module sind `NA`.
 

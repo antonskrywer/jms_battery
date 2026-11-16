@@ -5,7 +5,8 @@
 #' participation code stays in the same file) with
 #' * session info (`p_id`, `valid_id`, `complete`, `tests_complete`, start
 #'   and end time, number of resumptions),
-#' * DEG variables, instrument and start of lessons (INS),
+#' * DEG variables, main instrument, up to three further instruments and
+#'   start of lessons on the main instrument (INS),
 #' * lesson minutes per week, individual and ensemble (UEB),
 #' * the ability score of each adaptive test (`JAJ`, `MIQ`, `BAT`, `MDT`),
 #' * all subscales of the questionnaires in `scales`.
@@ -77,8 +78,15 @@ ins_vars <- function(ins) {
   year <- na_if_null(ins$lesson_start_year)
   start <- if (is.na(month) || is.na(year)) as.Date(NA)
            else as.Date(sprintf("%d-%02d-01", year, month))
+  further <- unlist(ins[c("instrument_2", "instrument_3", "instrument_4")])
   list(
     INS.instrument = na_if_null(ins$instrument),
+    INS.has_further_instruments = if (is.null(ins$has_further_instruments)) NA
+                                  else ins$has_further_instruments == "yes",
+    INS.instrument_2 = na_if_null(ins$instrument_2),
+    INS.instrument_3 = na_if_null(ins$instrument_3),
+    INS.instrument_4 = na_if_null(ins$instrument_4),
+    INS.num_instruments = if (is.null(ins$instrument)) NA_integer_ else 1L + length(further),
     INS.lesson_start_month = month,
     INS.lesson_start_year = year,
     INS.lesson_start = start

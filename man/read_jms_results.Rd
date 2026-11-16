@@ -30,7 +30,8 @@ participation code stays in the same file) with
 \itemize{
 \item session info (\code{p_id}, \code{valid_id}, \code{complete}, \code{tests_complete}, start
 and end time, number of resumptions),
-\item DEG variables, instrument and start of lessons (INS),
+\item DEG variables, main instrument, up to three further instruments and
+start of lessons on the main instrument (INS),
 \item lesson minutes per week, individual and ensemble (UEB),
 \item the ability score of each adaptive test (\code{JAJ}, \code{MIQ}, \code{BAT}, \code{MDT}),
 \item all subscales of the questionnaires in \code{scales}.

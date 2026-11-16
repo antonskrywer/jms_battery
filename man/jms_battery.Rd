@@ -55,11 +55,13 @@ Order (Stand 2026-11-12):
 \enumerate{
 \item Welcome, participation code (8 digits with check digits)
 \item DEG (age, gender, country of formative years, first and second
-language) and INS (instrument, start of lessons)
+language) and INS (main instrument, up to three further instruments,
+start of lessons on the main instrument)
 \item Tests: DMT, JAJ, MIQ, CA-BAT, MDT
 \item Landing page announcing the questionnaires
 \item Questionnaires: UEB (lesson minutes per week, individual and ensemble)
-and CCM, GMS (short version), TOM, TPI, MHE, SES (filled in by the
+and CCM, GMS (short version without the instrument item), TOM, TPI,
+MHE, SES (filled in by the
 parents, formal "Sie")
 }
 }

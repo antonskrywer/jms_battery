@@ -21,11 +21,13 @@ jms_dmt_allocation <- c(easy_easy = 3L, easy_hard = 1L,
 #' Order (Stand 2026-11-12):
 #' 1. Welcome, participation code (8 digits with check digits)
 #' 2. DEG (age, gender, country of formative years, first and second
-#'    language) and INS (instrument, start of lessons)
+#'    language) and INS (main instrument, up to three further instruments,
+#'    start of lessons on the main instrument)
 #' 3. Tests: DMT, JAJ, MIQ, CA-BAT, MDT
 #' 4. Landing page announcing the questionnaires
 #' 5. Questionnaires: UEB (lesson minutes per week, individual and ensemble)
-#'    and CCM, GMS (short version), TOM, TPI, MHE, SES (filled in by the
+#'    and CCM, GMS (short version without the instrument item), TOM, TPI,
+#'    MHE, SES (filled in by the
 #'    parents, formal "Sie")
 #'
 #' CSA and BOT-2 are run on site without the computer and are not part of
@@ -127,7 +129,7 @@ jms_battery <- function(title = "JMS Testbatterie",
     de_timeline(questionnaire_landing_page(home_url)),
     with_save(de_timeline(lesson_time_module())),
     with_save(psyquest::CCM()),
-    with_save(psyquest::GMS(short_version = TRUE)),
+    with_save(gms_module()),
     with_save(psyquest::TOM()),
     with_save(psyquest::TPI()),
     with_save(psyquest::MHE()),
@@ -162,6 +164,17 @@ dmt_module <- function(dmt_allocation, language, ...) {
              language = language, with_id = FALSE, with_final_page = FALSE, ...),
     de_timeline(psychTestR::end_module())
   )
+}
+
+# Gold-MSI short version (29 items) without item 32 ("Das Instrument, welches
+# ich am besten spiele, ist ___"), because INS already asks for the main
+# instrument. psyquest selects GMS items via a config file of subscale item
+# ids; scoring is the same as for the short version, only the subscale
+# "Instrument" is missing.
+gms_module <- function() {
+  psyquest::GMS(configuration_filepath = system.file(
+    "extdata", "GMS_short_without_instrument.csv", package = "jmsbattery", mustWork = TRUE
+  ))
 }
 
 # MIQ is installed on the server but not available from a public repository,

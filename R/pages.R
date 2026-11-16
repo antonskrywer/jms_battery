@@ -97,27 +97,75 @@ instrument_module <- function() {
     psychTestR::text_input_page(
       label = "instrument",
       prompt = shiny::div(
-        shiny::p("Welches Instrument lernst du an der Jugendmusikschule?"),
-        shiny::p("Wenn du mehrere lernst, nenne zuerst das Hauptinstrument.",
+        shiny::p("Was ist dein Hauptinstrument?"),
+        shiny::p("Das ist das Instrument, das du an der Jugendmusikschule hauptsächlich lernst. ",
+                 "Gesang zählt auch als Instrument.",
                  style = "font-size:90%;color:#666")
       ),
       placeholder = "z. B. Klavier",
       button_text = "Weiter",
       validate = function(answer, ...) {
-        if (nchar(trimws(answer)) > 0) TRUE else "Bitte gib dein Instrument an."
+        if (nchar(trimws(answer)) > 0) TRUE else "Bitte gib dein Hauptinstrument an."
       }
+    ),
+    psychTestR::NAFC_page(
+      label = "has_further_instruments",
+      prompt = shiny::div(
+        shiny::p("Spielst du außer deinem Hauptinstrument noch weitere Instrumente?"),
+        shiny::p("Auch außerhalb der Jugendmusikschule. Gesang zählt auch.",
+                 style = "font-size:90%;color:#666")
+      ),
+      choices = c("yes", "no"),
+      labels = c("Ja", "Nein")
+    ),
+    psychTestR::conditional(
+      test = function(state, ...) identical(psychTestR::answer(state), "yes"),
+      logic = further_instruments_page()
     ),
     lesson_start_page(),
     psychTestR::end_module()
   )
 }
 
+# Up to three further instruments; the first is required, the others optional.
+further_instruments_page <- function() {
+  fields <- c(instrument_2 = "Zweites Instrument",
+              instrument_3 = "Drittes Instrument (falls vorhanden)",
+              instrument_4 = "Viertes Instrument (falls vorhanden)")
+  psychTestR::page(
+    ui = shiny::div(
+      shiny::p("Welche weiteren Instrumente spielst du?"),
+      shiny::div(
+        style = "max-width:300px;margin:auto;text-align:left",
+        lapply(names(fields), function(id) {
+          shiny::textInput(id, fields[[id]], width = "300px")
+        })
+      ),
+      psychTestR::trigger_button("next", "Weiter")
+    ),
+    label = "further_instruments",
+    get_answer = function(input, ...) {
+      vapply(names(fields), function(id) trimws(input[[id]] %||% ""), character(1))
+    },
+    validate = function(answer, ...) {
+      if (nzchar(answer[["instrument_2"]])) TRUE else "Bitte gib mindestens ein weiteres Instrument an."
+    },
+    on_complete = function(answer, state, ...) {
+      for (id in names(answer)) {
+        if (nzchar(answer[[id]])) psychTestR::save_result(state, id, answer[[id]])
+      }
+    }
+  )
+}
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
 lesson_start_page <- function() {
   this_year <- as.integer(format(Sys.Date(), "%Y"))
   years <- as.character(this_year:(this_year - 15))
   psychTestR::page(
     ui = shiny::div(
-      shiny::p("Seit wann hast du Unterricht auf diesem Instrument?"),
+      shiny::p("Seit wann hast du Unterricht auf deinem Hauptinstrument?"),
       shiny::p("Wenn du es nicht genau weißt, schätze bitte.",
                style = "font-size:90%;color:#666"),
       shiny::div(
@@ -158,7 +206,7 @@ lesson_time_module <- function() {
 lesson_time_page <- function() {
   psychTestR::page(
     ui = shiny::div(
-      shiny::p("Wie viele Minuten Unterricht auf deinem Instrument hast du ",
+      shiny::p("Wie viele Minuten Unterricht auf deinem Hauptinstrument hast du ",
                "normalerweise pro Woche?"),
       shiny::p("Gib 0 ein, wenn du diese Art von Unterricht nicht hast.",
                style = "font-size:90%;color:#666"),
