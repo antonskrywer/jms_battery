@@ -5,12 +5,13 @@
 \alias{jms_num_items}
 \title{Item numbers of the tests}
 \format{
-An object of class \code{integer} of length 5.
+An object of class \code{integer} of length 4.
 }
 \usage{
 jms_num_items
 }
 \description{
-For DMT this is the number of main trials.
+For DMT the number of main trials comes from \link{jms_dmt_allocation}, so it
+is not listed here.
 }
 \keyword{datasets}

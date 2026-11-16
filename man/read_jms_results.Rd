@@ -6,7 +6,7 @@
 \usage{
 read_jms_results(
   results_dir = "output/results",
-  scales = "GMS",
+  scales = c("CCM", "GMS", "TOM", "TPI", "MHE", "SES"),
   complete_only = FALSE
 )
 }
@@ -15,25 +15,28 @@ read_jms_results(
 \code{"output/results"} of the running battery.}
 
 \item{scales}{Questionnaires whose subscale scores are added; any of
-\code{"GMS"}, \code{"TOM"}, \code{"GRT"}, \code{"CCM"}.}
+\code{"CCM"}, \code{"GMS"}, \code{"TOM"}, \code{"TPI"}, \code{"MHE"}, \code{"SES"}.}
 
-\item{complete_only}{If \code{TRUE}, sessions that did not finish the core
-part are dropped.}
+\item{complete_only}{If \code{TRUE}, only sessions that reached the end
+(including the questionnaires) are kept.}
 }
 \value{
 A tibble.
 }
 \description{
 Reads every psychTestR results file (\code{.rds}) in \code{results_dir} and returns
-one row per file (= per session) with
+one row per file (= per session; a session resumed at home with the same
+participation code stays in the same file) with
 \itemize{
-\item session info (\code{p_id}, \code{complete}, start and end time),
-\item all DEG variables,
-\item the ability score of each adaptive test (\code{RAT}, \code{BAT}, \code{JAJ}, \code{MPT}),
-\item all subscales of the questionnaires in \code{scales} (default: GMS),
-\item whether the participant chose the optional block (\code{extras_choice}).
+\item session info (\code{p_id}, \code{valid_id}, \code{complete}, \code{tests_complete}, start
+and end time, number of resumptions),
+\item DEG variables, instrument and start of lessons (INS),
+\item lesson minutes per week, individual and ensemble (UEB),
+\item the ability score of each adaptive test (\code{JAJ}, \code{MIQ}, \code{BAT}, \code{MDT}),
+\item all subscales of the questionnaires in \code{scales}.
 }
 }
 \details{
-Modules a participant did not reach are \code{NA}.
+Modules a participant did not reach are \code{NA}. DMT trials are best read
+with \code{DMT::DMT_results_to_long()}.
 }

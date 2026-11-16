@@ -8,12 +8,13 @@ jms_battery(
   title = "JMS Testbatterie",
   admin_password = "jms_admin",
   researcher_email = "anton.schreiber@uni-hamburg.de",
-  extras = c("GRT", "CCM", "MPT"),
   num_items = jms_num_items,
+  dmt_allocation = jms_dmt_allocation,
   take_training = TRUE,
   dmt_feedback = TRUE,
+  resume_days = 14,
+  home_url = NULL,
   debug = FALSE,
-  language = "de",
   ...
 )
 }
@@ -24,29 +25,52 @@ jms_battery(
 
 \item{researcher_email}{Contact address shown on problem pages.}
 
-\item{extras}{Character vector of optional modules to offer, any of
-\code{"GRT"}, \code{"CCM"}, \code{"MPT"}. Use \code{character()} to drop the optional block.}
+\item{num_items}{Named integer vector with item numbers for JAJ, MIQ,
+BAT, MDT.}
 
-\item{num_items}{Named integer vector with item numbers for RAT, BAT, JAJ,
-DMT, MPT.}
+\item{dmt_allocation}{Named integer vector with the number of DMT main
+trials per stratum, see \link{jms_dmt_allocation}.}
 
 \item{take_training}{Whether the tests show their practice items.}
 
 \item{dmt_feedback}{Whether DMT trials allow up to four attempts with
 feedback (\code{TRUE}) or a single attempt (\code{FALSE}).}
 
-\item{debug}{If \code{TRUE}, every adaptive test runs with a single item and
-without training, for quickly clicking through the battery.}
+\item{resume_days}{A session last used more than this many days ago is
+not resumed.}
 
-\item{language}{Test language; all modules support \code{"de"} (informal du).}
+\item{home_url}{Optional address of the battery, shown on the landing
+page before the questionnaires so that participants know where to
+continue at home.}
+
+\item{debug}{If \code{TRUE}, every adaptive test runs with a single item, DMT
+with a single trial, all without training, for quickly clicking through
+the battery. Without the MIQ package installed, MIQ is then left out
+with a warning instead of an error.}
 
 \item{...}{Further arguments passed to \code{\link[psychTestR:test_options]{psychTestR::test_options()}}.}
 }
 \description{
-Core part: DEG (age, gender, nationality, languages), RAT, BAT (CA-BAT),
-JAJ, DMT (Drum Machine Test), GMS (Gold-MSI short version) and TOM.
-Afterwards participants are asked
-whether they have time left for the optional block (GRT, CCM, MPT).
-Results are saved after every module, so stopping during the optional block
-loses nothing; the session is marked complete once the core part is done.
+Order (Stand 2026-11-12):
+\enumerate{
+\item Welcome, participation code (8 digits with check digits)
+\item DEG (age, gender, country of formative years, first and second
+language) and INS (instrument, start of lessons)
+\item Tests: DMT, JAJ, MIQ, CA-BAT, MDT
+\item Landing page announcing the questionnaires
+\item Questionnaires: UEB (lesson minutes per week, individual and ensemble)
+and CCM, GMS (short version), TOM, TPI, MHE, SES (filled in by the
+parents, formal "Sie")
+}
+}
+\details{
+CSA and BOT-2 are run on site without the computer and are not part of
+the app.
+
+Results are saved after every module. The questionnaires can be filled in
+later at home: entering the same participation code again resumes the
+session where it was left, and everything ends up in the same results
+file. A session is not resumed if it was finished or if it was last used
+more than \code{resume_days} days ago; then the code starts a new session (for
+example in the next wave).
 }

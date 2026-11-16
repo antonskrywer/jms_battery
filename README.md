@@ -1,80 +1,129 @@
 # jms_battery
 
-psychTestR-Testbatterie für die JMS-Studie (R-Paket `jmsbattery`, Sprache: Deutsch, du-Form).
+psychTestR-Testbatterie für die JMS-Studie DELTA-M (R-Paket `jmsbattery`, Sprache: Deutsch, du-Form;
+die Elternfragen in Sie-Form).
 
-## Ablauf
+## Ablauf (Stand 2026-11-12)
 
-**Pflichtteil**
+CSA (Cup Song Assessment) und die BOT-2-Feinmotorik laufen vorher vor Ort ohne Computer und
+gehören nicht zur App.
+
+**Start und Tests**
 
 | # | Modul | Inhalt | Paket |
 |---|-------|--------|-------|
-| 1 | Begrüßung, Teilnahmecode | | |
-| 2 | DEG | Alter (Monat/Jahr), Geschlecht, Nationalität, Erst- und Zweitsprache | psyquest |
-| 3 | Lautstärkeeinstellung | | |
-| 4 | RAT | Rhythm Ability Test, 14 Items | RAT |
-| 5 | BAT | Computerised Beat Alignment Test, 20 Items | cabat |
-| 6 | JAJ | Jack & Jill Working Memory, 8 Items | JAJ |
-| 7 | DMT | Drum Machine Test, 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
-| 8 | GMS | Gold-MSI, Kurzversion (`short_version = TRUE`, 29 Items) | psyquest |
-| 9 | TOM | Musical Growth Mindset, 12 Items | psyquest |
+| 1 | Begrüßung, Teilnahmecode | 8 Ziffern mit Prüfziffer (siehe unten) | |
+| 2 | DEG | Alter (Monat/Jahr), Geschlecht, Land der prägenden Jahre, Erst- und Zweitsprache | psyquest |
+| 3 | INS | Instrument (freie Angabe), Unterrichtsbeginn (Monat/Jahr) | eigene Seiten |
+| 4 | Lautstärkeeinstellung | | |
+| 5 | DMT | Drum Machine Test, 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
+| 6 | JAJ | Jack & Jill (Arbeitsgedächtnis), 8 Items | JAJ |
+| 7 | MIQ | Matrizen (Reasoning), 8 Items | MIQ |
+| 8 | BAT | CA-BAT (Beat-Wahrnehmung), 20 Items | cabat |
+| 9 | MDT | Melodiediskrimination, 18 Items | mdt |
 
-Nach TOM ist die Sitzung als `complete=true` gespeichert.
+Danach steht `JMS$tests_complete = TRUE` in der Ergebnisdatei.
 
-**Zusatzteil (optional).** Eine Seite fragt, ob noch 10–15 Minuten Zeit sind.
-„Nein“ beendet die Sitzung, „Ja“ führt zu:
+**Fragebögen.** Eine Zwischenseite kündigt sie an und sagt, dass man sie auch zu Hause
+ausfüllen kann.
 
-| Modul | Inhalt | Paket |
-|-------|--------|-------|
-| GRT | Grit | psyquest |
-| CCM | Concurrent Musical Activities | psyquest |
-| MPT | Mistuning Perception Test, 20 Items (divergente Validität) | mpt |
+| # | Modul | Inhalt | Paket |
+|---|-------|--------|-------|
+| 10 | UEB | Unterricht auf dem Instrument in Minuten pro Woche, getrennt nach Einzel- und Ensembleunterricht | eigene Seite |
+| 11 | CCM | Concurrent Musical Activities (inkl. Musizierzeit pro Woche) | psyquest |
+| 12 | GMS | Gold-MSI, Kurzversion | psyquest |
+| 13 | TOM | Theory of Musicality | psyquest |
+| 14 | TPI | Ten Item Personality Inventory, Selbstauskunft | psyquest |
+| 15 | MHE | Musical Home Environment | psyquest |
+| 16 | SES | Bildungsabschluss der Eltern und Beruf (ESeC), füllen die Eltern aus | psyquest |
 
-Nach jedem Modul wird gespeichert, ein Abbruch im Zusatzteil verliert also nichts.
-Die Entscheidung steht in den Ergebnissen unter `results$extras_choice`.
+Vor SES bittet eine Seite das Kind, das Gerät an die Eltern weiterzugeben. Die SES-Texte
+stammen aus psyquests formeller Fassung (`de_f`). Die beiden Bildungsfragen sind auf
+„die Mutter / der Vater Ihres Kindes“ umformuliert. Erst nach SES ist die Sitzung
+`complete=true`.
 
-Die adaptiven Tests zeigen ihre Übungsitems, aber kein Score-Feedback.
+Gespeichert wird nach jedem Modul.
+
+### Fortsetzen zu Hause
+
+Wer denselben Teilnahmecode noch einmal eingibt, macht in seiner Sitzung genau dort weiter,
+wo er aufgehört hat, auch auf einem anderen Gerät. Alles landet in derselben Ergebnisdatei.
+Ein neuer Durchgang startet stattdessen, wenn
+
+- die Sitzung schon bis zum Ende durchlaufen ist, oder
+- sie zuletzt vor mehr als `resume_days` Tagen (Standard 14) benutzt wurde, etwa in der
+  nächsten Welle.
+
+psychTestR zeigt beim Fortsetzen kurz die englische Meldung „Resuming previous session.“.
+Die Sitzungsdaten liegen in `output/sessions/` und werden nach 31 Tagen gelöscht
+(`session_timeout_min`).
+
+Für die Testleitung heißt das: Jedes Kind muss mit der **sauberen Adresse ohne `?p_id=…`**
+starten. Steht noch die Adresse des vorherigen Kindes im Browser, setzt psychTestR dessen
+Sitzung fort.
+
+### Teilnahmecode
+
+8 Ziffern: 2 für die Lehrkraft, 4 für die Laufnummer, 2 Prüfziffern. Die Prüfziffern sind die
+zweistellige Quersumme der ersten sechs Ziffern, z. B. `01000102`. Andere Codes lehnt die
+Eingabeseite ab. `is_valid_jms_id()` prüft genauso wie der Battery Monitor.
+
+### DMT mit leichten Items
+
+Weil Kinder getestet werden, zieht der DMT seine Haupttrials vor allem aus der leichten
+Itembank (`jms_dmt_allocation`):
+
+| Stratum | Trials |
+|---|---|
+| easy_easy (leichte Itembank, leichtere Hälfte) | 3 |
+| easy_hard (leichte Itembank, schwerere Hälfte) | 1 |
+| normal_easy (normale Itembank, leichtere Hälfte) | 1 |
+| normal_hard (normale Itembank, schwerere Hälfte) | 0 |
 
 ## Installation
 
 ```r
 remotes::install_github(c("pmcharrison/psychTestR", "klausfrieler/psyquest",
-                          "klausfrieler/RAT", "klausfrieler/JAJ",
-                          "pmcharrison/cabat", "pmcharrison/mpt",
-                          "antonskrywer/DMT"))
+                          "klausfrieler/JAJ", "pmcharrison/cabat",
+                          "pmcharrison/mdt", "antonskrywer/DMT"))
 devtools::install()   # im Repo-Verzeichnis
 ```
+
+MIQ ist auf dem Server vorinstalliert und steht nur unter `Suggests`. Fehlt es,
+bricht `jms_battery()` mit einer Fehlermeldung ab. Nur mit `debug = TRUE` wird MIQ dann mit
+einer Warnung weggelassen.
 
 ## Start
 
 ```r
 library(jmsbattery)
-jms_battery(admin_password = "...")          # lokal: shiny::runApp(jms_battery())
-jms_battery(debug = TRUE)                     # je 1 Item, ohne Training, zum Durchklicken
-jms_battery(extras = c("MPT"))                # nur MPT als Zusatz
-jms_battery(extras = character())             # ohne Zusatzteil
-jms_battery(num_items = c(RAT = 14, BAT = 20, JAJ = 8, DMT = 5, MPT = 20))
-jms_battery(dmt_feedback = FALSE)             # DMT mit nur einem Versuch pro Trial
+jms_battery(admin_password = "...")           # lokal: shiny::runApp(jms_battery())
+jms_battery(debug = TRUE)                      # je 1 Item, 1 DMT-Trial, ohne Training
+jms_battery(num_items = c(JAJ = 8, MIQ = 8, BAT = 20, MDT = 18))
+jms_battery(dmt_allocation = c(easy_easy = 2, easy_hard = 2, normal_easy = 1, normal_hard = 0))
+jms_battery(dmt_feedback = FALSE)              # DMT mit nur einem Versuch pro Trial
+jms_battery(home_url = "https://…/jms_battery") # Adresse auf der Fragebogen-Zwischenseite
 ```
 
 Für Shiny Server liegt `app.R` im Repo-Root. Sie liest das Admin-Passwort aus
 der Umgebungsvariable `JMS_ADMIN_PASSWORD` (auf dem Server in
-`/home/shiny/.Renviron`) und startet ohne sie nicht. Ergebnisse landen in
-`output/results/` (nicht versioniert).
+`/home/shiny/.Renviron`) und startet ohne sie nicht. Optional setzt `JMS_HOME_URL`
+die Adresse für die Zwischenseite. Ergebnisse landen in `output/results/` (nicht versioniert).
 
 ## Ergebnisse einlesen
 
 ```r
 library(jmsbattery)
-d <- read_jms_results("output/results")                    # DEG, Abilities, GMS
-d <- read_jms_results("output/results", complete_only = TRUE,
-                      scales = c("GMS", "TOM", "GRT", "CCM"))
+d <- read_jms_results("output/results")
+d <- read_jms_results("output/results", complete_only = TRUE, scales = c("GMS", "TPI"))
 ```
 
-Eine Zeile pro Sitzung. Spalten: `p_id`, `complete`, `time_started`,
-`time_last_saved`, `file`, `DEG.*` (Geschlecht, Geburtsmonat/-jahr, Alter in
-Monaten und Jahren zum Testzeitpunkt, Nationalität, Erst-/Zweitsprache),
-`RAT/BAT/JAJ/MPT.ability`, `GMS.*` (alle Subskalen) und `extras_choice`.
-Nicht erreichte Module sind `NA`.
+Eine Zeile pro Sitzung. Spalten: `p_id`, `valid_id`, `complete`, `tests_complete`,
+`time_started`, `time_last_saved`, `num_restarts`, `file`, `DEG.*` (Geschlecht,
+Geburtsmonat/-jahr, Alter in Monaten und Jahren, Land der prägenden Jahre,
+Erst-/Zweitsprache), `INS.*` (Instrument, Unterrichtsbeginn), `UEB.*` (Minuten pro
+Woche einzeln/Ensemble), `JAJ/MIQ/BAT/MDT.ability` und die Subskalen von CCM, GMS,
+TOM, TPI, MHE und SES. Nicht erreichte Module sind `NA`.
 
 Der DMT hat keinen Ability-Wert. Seine Trial-Daten stehen in `r$DMT` und
 lassen sich pro Person mit dem DMT-Paket in Langformat bringen:
@@ -86,9 +135,13 @@ DMT::DMT_results_to_long(r$DMT, p_id = r$session$p_id)   # eine Zeile pro Versuc
 
 ## Hinweise
 
-- MIQ ist nicht enthalten (kein verfügbares Paket).
+- Gegenüber Version 0.1 sind RAT, GRT, MPT und der optionale Zusatzteil weggefallen.
+  CCM gehört jetzt fest zu den Fragebögen.
+- Der Battery Monitor (`jms_battery_monitor`) kennt den neuen Aufbau noch nicht.
 - Der DMT läuft mit `with_final_page = FALSE` (ab DMT 0.2.2), damit er die
   Batterie nicht beendet. `dmt_module()` legt ihn in einen eigenen
   Ergebnisabschnitt `DMT`.
+- Die Eingabeseite für den Code nutzt interne psychTestR-Funktionen (`try_resume_session`,
+  `safe_load_session`, `read_timestamp`, `increment_elt_index`), getestet mit psychTestR 2.27.3.
 - Das Standard-Admin-Passwort `jms_admin` von `jms_battery()` gilt nur beim
   lokalen Testen; `app.R` nutzt immer `JMS_ADMIN_PASSWORD`.
