@@ -17,13 +17,13 @@
 #' @param results_dir Folder with the results files, usually
 #'   `"output/results"` of the running battery.
 #' @param scales Questionnaires whose subscale scores are added; any of
-#'   `"CCM"`, `"GMS"`, `"TOM"`, `"TPI"`, `"MHE"`, `"SES"`.
+#'   `"CCM"`, `"GMS"`, `"TOM"`, `"GRT"`, `"MHE"`, `"SES"`.
 #' @param complete_only If `TRUE`, only sessions that reached the end
 #'   (including the questionnaires) are kept.
 #' @return A tibble.
 #' @export
 read_jms_results <- function(results_dir = "output/results",
-                             scales = c("CCM", "GMS", "TOM", "TPI", "MHE", "SES"),
+                             scales = c("CCM", "GMS", "TOM", "GRT", "MHE", "SES"),
                              complete_only = FALSE) {
   files <- list.files(results_dir, pattern = "\\.rds$", full.names = TRUE)
   if (length(files) == 0) stop("No results files found in ", results_dir)

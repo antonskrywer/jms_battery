@@ -33,7 +33,7 @@ ausfüllen kann.
 | 11 | CCM | Concurrent Musical Activities (inkl. Musizierzeit pro Woche) | psyquest |
 | 12 | GMS | Gold-MSI, 23 Items der Kurzversion: ohne Item 32 („Das Instrument, welches ich am besten spiele“), Item 22 („Ich kann ___ verschiedene Instrumente spielen“) und die Singing-Abilities-Items 8, 11, 23, 33. Die Subskalen „Instrument“ und „Singing Abilities“ entfallen; „General“ (10 statt 18 Items) und „Musical Training“ (4 statt 7) sind dadurch **nicht normvergleichbar** | psyquest |
 | 13 | TOM | Theory of Musicality | psyquest |
-| 14 | TPI | Ten Item Personality Inventory, Selbstauskunft | psyquest |
+| 14 | GRT | Grit (Selbstauskunft) | psyquest |
 | 15 | MHE | Musical Home Environment | psyquest |
 | 16 | SES | Bildungsabschluss der Eltern und Beruf (ESeC), füllen die Eltern aus | psyquest |
 
@@ -115,7 +115,7 @@ die Adresse für die Zwischenseite. Ergebnisse landen in `output/results/` (nich
 ```r
 library(jmsbattery)
 d <- read_jms_results("output/results")
-d <- read_jms_results("output/results", complete_only = TRUE, scales = c("GMS", "TPI"))
+d <- read_jms_results("output/results", complete_only = TRUE, scales = c("GMS", "GRT"))
 ```
 
 Eine Zeile pro Sitzung. Spalten: `p_id`, `valid_id`, `complete`, `tests_complete`,
@@ -124,7 +124,7 @@ Geburtsmonat/-jahr, Alter in Monaten und Jahren, Land der prägenden Jahre,
 Erst-/Zweitsprache), `INS.*` (Hauptinstrument, weitere Instrumente `INS.instrument_2` bis
 `_4`, Anzahl `INS.num_instruments`, Unterrichtsbeginn), `UEB.*` (Minuten pro
 Woche einzeln/Ensemble), `JAJ/MIQ/BAT/MDT.ability` und die Subskalen von CCM, GMS,
-TOM, TPI, MHE und SES. Nicht erreichte Module sind `NA`.
+TOM, GRT, MHE und SES. Nicht erreichte Module sind `NA`.
 
 Der DMT hat keinen Ability-Wert. Seine Trial-Daten stehen in `r$DMT` und
 lassen sich pro Person mit dem DMT-Paket in Langformat bringen:
@@ -136,7 +136,7 @@ DMT::DMT_results_to_long(r$DMT, p_id = r$session$p_id)   # eine Zeile pro Versuc
 
 ## Hinweise
 
-- Gegenüber Version 0.1 sind RAT, GRT, MPT und der optionale Zusatzteil weggefallen.
+- Gegenüber Version 0.1 sind RAT, MPT und der optionale Zusatzteil weggefallen; GRT ist jetzt fester Fragebogen (statt TPI).
   CCM gehört jetzt fest zu den Fragebögen.
 - Der Battery Monitor (`jms_battery_monitor`) kennt den neuen Aufbau noch nicht.
 - Der DMT läuft mit `with_final_page = FALSE` (ab DMT 0.2.2), damit er die

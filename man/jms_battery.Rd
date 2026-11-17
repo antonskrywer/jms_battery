@@ -60,7 +60,7 @@ start of lessons on the main instrument)
 \item Tests: DMT, JAJ, MIQ, CA-BAT, MDT
 \item Landing page announcing the questionnaires
 \item Questionnaires: UEB (lesson minutes per week, individual and ensemble)
-and CCM, GMS (23 items of the short version), TOM, TPI,
+and CCM, GMS (23 items of the short version), TOM, GRT,
 MHE, SES (filled in by the
 parents, formal "Sie")
 }

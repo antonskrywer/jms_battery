@@ -162,7 +162,7 @@ further_instruments_page <- function() {
 
 lesson_start_page <- function() {
   this_year <- as.integer(format(Sys.Date(), "%Y"))
-  years <- as.character(this_year:(this_year - 15))
+  years <- as.character(this_year:1950)
   psychTestR::page(
     ui = shiny::div(
       shiny::p("Seit wann hast du Unterricht auf deinem Hauptinstrument?"),

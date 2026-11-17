@@ -6,7 +6,7 @@
 \usage{
 read_jms_results(
   results_dir = "output/results",
-  scales = c("CCM", "GMS", "TOM", "TPI", "MHE", "SES"),
+  scales = c("CCM", "GMS", "TOM", "GRT", "MHE", "SES"),
   complete_only = FALSE
 )
 }
@@ -15,7 +15,7 @@ read_jms_results(
 \code{"output/results"} of the running battery.}
 
 \item{scales}{Questionnaires whose subscale scores are added; any of
-\code{"CCM"}, \code{"GMS"}, \code{"TOM"}, \code{"TPI"}, \code{"MHE"}, \code{"SES"}.}
+\code{"CCM"}, \code{"GMS"}, \code{"TOM"}, \code{"GRT"}, \code{"MHE"}, \code{"SES"}.}
 
 \item{complete_only}{If \code{TRUE}, only sessions that reached the end
 (including the questionnaires) are kept.}

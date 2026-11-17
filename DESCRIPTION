@@ -6,7 +6,7 @@ Description: psychTestR test battery for the JMS study (DELTA-M): demographics
     (DEG), instrument and start of lessons, the Drum Machine Test (DMT),
     working memory (JAJ), matrix reasoning (MIQ), beat perception (CA-BAT)
     and melodic discrimination (MDT), followed by questionnaires (lesson
-    time, CCM, Gold-MSI short version, TOM, TPI, MHE, SES) that can also
+    time, CCM, Gold-MSI short version, TOM, GRT, MHE, SES) that can also
     be filled in later at home.
 License: MIT + file LICENSE
 Encoding: UTF-8

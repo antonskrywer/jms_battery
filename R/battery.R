@@ -26,7 +26,7 @@ jms_dmt_allocation <- c(easy_easy = 3L, easy_hard = 1L,
 #' 3. Tests: DMT, JAJ, MIQ, CA-BAT, MDT
 #' 4. Landing page announcing the questionnaires
 #' 5. Questionnaires: UEB (lesson minutes per week, individual and ensemble)
-#'    and CCM, GMS (23 items of the short version), TOM, TPI,
+#'    and CCM, GMS (23 items of the short version), TOM, GRT,
 #'    MHE, SES (filled in by the
 #'    parents, formal "Sie")
 #'
@@ -100,7 +100,7 @@ jms_battery <- function(title = "JMS Testbatterie",
     with_save(psyquest::DEG(subscales = c("Age", "Gender", "Country Formative Years",
                                           "First Language", "Second Language"),
                             language = language,
-                            year_range = c(2005, as.integer(format(Sys.Date(), "%Y")) - 4L))),
+                            year_range = c(1925, as.integer(format(Sys.Date(), "%Y")) - 4L))),
     with_save(de_timeline(instrument_module()))
   )
 
@@ -131,7 +131,7 @@ jms_battery <- function(title = "JMS Testbatterie",
     with_save(psyquest::CCM()),
     with_save(gms_module()),
     with_save(psyquest::TOM()),
-    with_save(psyquest::TPI()),
+    with_save(psyquest::GRT()),
     with_save(psyquest::MHE()),
     de_timeline(parents_page()),
     psyquest::SES(dict = ses_parent_dict()),
