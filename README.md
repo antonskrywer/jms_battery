@@ -16,7 +16,7 @@ gehören nicht zur App.
 | 2 | DEG | Alter (Monat/Jahr), Geschlecht, Land der prägenden Jahre, Erst- und Zweitsprache | psyquest |
 | 3 | INS | Hauptinstrument (freie Angabe); weitere Instrumente ja/nein, wenn ja bis zu drei (das erste Pflicht); Unterrichtsbeginn auf dem Hauptinstrument (Monat/Jahr) | eigene Seiten |
 | 4 | Lautstärkeeinstellung | | |
-| 5 | DMT | Drum Machine Test, 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
+| 5 | DMT | Drum Machine Test (für die Kinder „Schlagzeug-Test“ mit „digitalem Schlagzeug“, ab DMT 0.2.3), 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
 | 6 | JAJ | Jack & Jill (Arbeitsgedächtnis), 8 Items | JAJ |
 | 7 | MIQ | Matrizen (Reasoning), 8 Items | MIQ |
 | 8 | BAT | CA-BAT (Beat-Wahrnehmung), 20 Items | cabat |
@@ -31,7 +31,7 @@ ausfüllen kann.
 |---|-------|--------|-------|
 | 10 | UEB | Unterricht auf dem Hauptinstrument in Minuten pro Woche, getrennt nach Einzel- und Ensembleunterricht | eigene Seite |
 | 11 | CCM | Concurrent Musical Activities (inkl. Musizierzeit pro Woche) | psyquest |
-| 12 | GMS | Gold-MSI, Kurzversion ohne Item 32 („Das Instrument, welches ich am besten spiele“), also 28 Items; die Subskala „Instrument“ entfällt | psyquest |
+| 12 | GMS | Gold-MSI, 23 Items der Kurzversion: ohne Item 32 („Das Instrument, welches ich am besten spiele“), Item 22 („Ich kann ___ verschiedene Instrumente spielen“) und die Singing-Abilities-Items 8, 11, 23, 33. Die Subskalen „Instrument“ und „Singing Abilities“ entfallen; „General“ (10 statt 18 Items) und „Musical Training“ (4 statt 7) sind dadurch **nicht normvergleichbar** | psyquest |
 | 13 | TOM | Theory of Musicality | psyquest |
 | 14 | TPI | Ten Item Personality Inventory, Selbstauskunft | psyquest |
 | 15 | MHE | Musical Home Environment | psyquest |

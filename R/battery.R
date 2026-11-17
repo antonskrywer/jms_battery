@@ -26,7 +26,7 @@ jms_dmt_allocation <- c(easy_easy = 3L, easy_hard = 1L,
 #' 3. Tests: DMT, JAJ, MIQ, CA-BAT, MDT
 #' 4. Landing page announcing the questionnaires
 #' 5. Questionnaires: UEB (lesson minutes per week, individual and ensemble)
-#'    and CCM, GMS (short version without the instrument item), TOM, TPI,
+#'    and CCM, GMS (23 items of the short version), TOM, TPI,
 #'    MHE, SES (filled in by the
 #'    parents, formal "Sie")
 #'
@@ -166,14 +166,17 @@ dmt_module <- function(dmt_allocation, language, ...) {
   )
 }
 
-# Gold-MSI short version (29 items) without item 32 ("Das Instrument, welches
-# ich am besten spiele, ist ___"), because INS already asks for the main
-# instrument. psyquest selects GMS items via a config file of subscale item
-# ids; scoring is the same as for the short version, only the subscale
-# "Instrument" is missing.
+# Gold-MSI short version (29 items) reduced to 23 items: without item 32
+# ("Das Instrument, welches ich am besten spiele, ist ___") and item 22
+# ("Ich kann ___ verschiedene Instrumente spielen"), because INS already asks
+# for the instruments, and without the Singing Abilities items (8, 11, 23,
+# 33). psyquest selects GMS items via a config file of subscale item ids.
+# The subscales "Instrument" and "Singing Abilities" are missing; "General"
+# (10 instead of 18 items) and "Musical Training" (4 instead of 7) are
+# computed from fewer items than usual and are not comparable to norms.
 gms_module <- function() {
   psyquest::GMS(configuration_filepath = system.file(
-    "extdata", "GMS_short_without_instrument.csv", package = "jmsbattery", mustWork = TRUE
+    "extdata", "GMS_jms_items.csv", package = "jmsbattery", mustWork = TRUE
   ))
 }
 
