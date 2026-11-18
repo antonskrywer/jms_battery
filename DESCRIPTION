@@ -13,7 +13,7 @@ Encoding: UTF-8
 Depends:
     R (>= 4.1.0)
 Imports:
-    DMT (>= 0.2.3),
+    DMT (>= 0.2.4),
     psychTestR (>= 2.22.0),
     psyquest (>= 1.6.1),
     JAJ (>= 0.1.7),

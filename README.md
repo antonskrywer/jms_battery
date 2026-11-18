@@ -16,7 +16,7 @@ gehören nicht zur App.
 | 2 | DEG | Alter (Monat/Jahr), Geschlecht, Land der prägenden Jahre, Erst- und Zweitsprache | psyquest |
 | 3 | INS | Hauptinstrument (freie Angabe); weitere Instrumente ja/nein, wenn ja bis zu drei (das erste Pflicht); Unterrichtsbeginn auf dem Hauptinstrument (Monat/Jahr) | eigene Seiten |
 | 4 | Lautstärkeeinstellung | | |
-| 5 | DMT | Drum Machine Test (für die Kinder „Schlagzeug-Test“ mit „digitalem Schlagzeug“, ab DMT 0.2.3), 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
+| 5 | DMT | Drum Machine Test (für die Kinder „Schlagzeug-Test“ mit „digitalem Schlagzeug“, ab DMT 0.2.4), 2 Übungs- und 5 Haupttrials, je bis zu 4 Versuche mit Feedback | DMT |
 | 6 | JAJ | Jack & Jill (Arbeitsgedächtnis), 8 Items | JAJ |
 | 7 | MIQ | Matrizen (Reasoning), 8 Items | MIQ |
 | 8 | BAT | CA-BAT (Beat-Wahrnehmung), 20 Items | cabat |
