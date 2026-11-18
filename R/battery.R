@@ -3,7 +3,7 @@
 #' For DMT the number of main trials comes from [jms_dmt_allocation], so it
 #' is not listed here.
 #' @export
-jms_num_items <- c(JAJ = 8L, MIQ = 8L, BAT = 20L, MDT = 18L)
+jms_num_items <- c(JAJ = 8L, MIQ = 8L, BAT = 20L, RAT = 14L, MPT = 20L)
 
 #' DMT trials per difficulty stratum
 #'
@@ -18,12 +18,12 @@ jms_dmt_allocation <- c(easy_easy = 3L, easy_hard = 1L,
 
 #' JMS test battery
 #'
-#' Order (Stand 2026-11-12):
+#' Order (Stand 2026-11-18):
 #' 1. Welcome, participation code (8 digits with check digits)
 #' 2. DEG (age, gender, country of formative years, first and second
 #'    language) and INS (main instrument, up to three further instruments,
 #'    start of lessons on the main instrument)
-#' 3. Tests: DMT, JAJ, MIQ, CA-BAT, MDT
+#' 3. Tests: DMT, JAJ, MIQ, CA-BAT, RAT, MPT
 #' 4. Landing page announcing the questionnaires
 #' 5. Questionnaires: UEB (lesson minutes per week, individual and ensemble)
 #'    and CCM, GMS (23 items of the short version), TOM, GRT,
@@ -44,7 +44,7 @@ jms_dmt_allocation <- c(easy_easy = 3L, easy_hard = 1L,
 #' @param admin_password Password for the psychTestR admin panel.
 #' @param researcher_email Contact address shown on problem pages.
 #' @param num_items Named integer vector with item numbers for JAJ, MIQ,
-#'   BAT, MDT.
+#'   BAT, RAT, MPT.
 #' @param dmt_allocation Named integer vector with the number of DMT main
 #'   trials per stratum, see [jms_dmt_allocation].
 #' @param take_training Whether the tests show their practice items.
@@ -72,7 +72,7 @@ jms_battery <- function(title = "JMS Testbatterie",
                         home_url = NULL,
                         debug = FALSE,
                         ...) {
-  stopifnot(all(c("JAJ", "MIQ", "BAT", "MDT") %in% names(num_items)),
+  stopifnot(all(c("JAJ", "MIQ", "BAT", "RAT", "MPT") %in% names(num_items)),
             setequal(names(dmt_allocation), names(jms_dmt_allocation)),
             sum(dmt_allocation) > 0)
   language <- "de"
@@ -118,7 +118,10 @@ jms_battery <- function(title = "JMS Testbatterie",
     with_save(cabat::cabat(num_items = num_items[["BAT"]],
                            take_training = take_training,
                            feedback = NULL)),
-    with_save(mdt::mdt(num_items = num_items[["MDT"]],
+    with_save(RAT::RAT(num_items = num_items[["RAT"]],
+                       take_training = take_training,
+                       feedback = NULL)),
+    with_save(mpt::mpt(num_items = num_items[["MPT"]],
                        take_training = take_training,
                        feedback = NULL)),
     de_timeline(mark_tests_complete()),
@@ -188,7 +191,7 @@ miq_module <- function(num_items, take_training) {
 }
 
 # Marks that all tests are done, before the (possibly later) questionnaires.
-# In its own results section, otherwise it would be filed under MDT.
+# In its own results section, otherwise it would be filed under MPT.
 mark_tests_complete <- function() {
   psychTestR::join(
     psychTestR::begin_module("JMS"),

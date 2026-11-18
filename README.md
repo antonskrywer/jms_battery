@@ -3,7 +3,7 @@
 psychTestR-Testbatterie für die JMS-Studie DELTA-M (R-Paket `jmsbattery`, Sprache: Deutsch, du-Form;
 die Elternfragen in Sie-Form).
 
-## Ablauf (Stand 2026-11-12)
+## Ablauf (Stand 2026-11-18)
 
 CSA (Cup Song Assessment) und die BOT-2-Feinmotorik laufen vorher vor Ort ohne Computer und
 gehören nicht zur App.
@@ -20,7 +20,8 @@ gehören nicht zur App.
 | 6 | JAJ | Jack & Jill (Arbeitsgedächtnis), 8 Items | JAJ |
 | 7 | MIQ | Matrizen (Reasoning), 8 Items | MIQ |
 | 8 | BAT | CA-BAT (Beat-Wahrnehmung), 20 Items | cabat |
-| 9 | MDT | Melodiediskrimination, 18 Items | mdt |
+| 9 | RAT | Rhythm Ability Test (Rhythmusgedächtnis), 14 Items | RAT |
+| 10 | MPT | Mistuning Perception Test (Intonationswahrnehmung), 20 Items | mpt |
 
 Danach steht `JMS$tests_complete = TRUE` in der Ergebnisdatei.
 
@@ -29,13 +30,13 @@ ausfüllen kann.
 
 | # | Modul | Inhalt | Paket |
 |---|-------|--------|-------|
-| 10 | UEB | Unterricht auf dem Hauptinstrument in Minuten pro Woche, getrennt nach Einzel- und Ensembleunterricht | eigene Seite |
-| 11 | CCM | Concurrent Musical Activities (inkl. Musizierzeit pro Woche) | psyquest |
-| 12 | GMS | Gold-MSI, 23 Items der Kurzversion: ohne Item 32 („Das Instrument, welches ich am besten spiele“), Item 22 („Ich kann ___ verschiedene Instrumente spielen“) und die Singing-Abilities-Items 8, 11, 23, 33. Die Subskalen „Instrument“ und „Singing Abilities“ entfallen; „General“ (10 statt 18 Items) und „Musical Training“ (4 statt 7) sind dadurch **nicht normvergleichbar** | psyquest |
-| 13 | TOM | Theory of Musicality | psyquest |
-| 14 | GRT | Grit (Selbstauskunft) | psyquest |
-| 15 | MHE | Musical Home Environment | psyquest |
-| 16 | SES | Bildungsabschluss der Eltern und Beruf (ESeC), füllen die Eltern aus | psyquest |
+| 11 | UEB | Unterricht auf dem Hauptinstrument in Minuten pro Woche, getrennt nach Einzel- und Ensembleunterricht | eigene Seite |
+| 12 | CCM | Concurrent Musical Activities (inkl. Musizierzeit pro Woche) | psyquest |
+| 13 | GMS | Gold-MSI, 23 Items der Kurzversion: ohne Item 32 („Das Instrument, welches ich am besten spiele“), Item 22 („Ich kann ___ verschiedene Instrumente spielen“) und die Singing-Abilities-Items 8, 11, 23, 33. Die Subskalen „Instrument“ und „Singing Abilities“ entfallen; „General“ (10 statt 18 Items) und „Musical Training“ (4 statt 7) sind dadurch **nicht normvergleichbar** | psyquest |
+| 14 | TOM | Theory of Musicality | psyquest |
+| 15 | GRT | Grit (Selbstauskunft) | psyquest |
+| 16 | MHE | Musical Home Environment | psyquest |
+| 17 | SES | Bildungsabschluss der Eltern und Beruf (ESeC), füllen die Eltern aus | psyquest |
 
 Vor SES bittet eine Seite das Kind, das Gerät an die Eltern weiterzugeben. Die SES-Texte
 stammen aus psyquests formeller Fassung (`de_f`). Die beiden Bildungsfragen sind auf
@@ -85,7 +86,8 @@ Itembank (`jms_dmt_allocation`):
 ```r
 remotes::install_github(c("pmcharrison/psychTestR", "klausfrieler/psyquest",
                           "klausfrieler/JAJ", "pmcharrison/cabat",
-                          "pmcharrison/mdt", "antonskrywer/DMT"))
+                          "klausfrieler/RAT", "pmcharrison/mpt",
+                          "antonskrywer/DMT"))
 devtools::install()   # im Repo-Verzeichnis
 ```
 
@@ -99,7 +101,7 @@ einer Warnung weggelassen.
 library(jmsbattery)
 jms_battery(admin_password = "...")           # lokal: shiny::runApp(jms_battery())
 jms_battery(debug = TRUE)                      # je 1 Item, 1 DMT-Trial, ohne Training
-jms_battery(num_items = c(JAJ = 8, MIQ = 8, BAT = 20, MDT = 18))
+jms_battery(num_items = c(JAJ = 8, MIQ = 8, BAT = 20, RAT = 14, MPT = 20))
 jms_battery(dmt_allocation = c(easy_easy = 2, easy_hard = 2, normal_easy = 1, normal_hard = 0))
 jms_battery(dmt_feedback = FALSE)              # DMT mit nur einem Versuch pro Trial
 jms_battery(home_url = "https://…/jms_battery") # Adresse auf der Fragebogen-Zwischenseite
@@ -123,7 +125,7 @@ Eine Zeile pro Sitzung. Spalten: `p_id`, `valid_id`, `complete`, `tests_complete
 Geburtsmonat/-jahr, Alter in Monaten und Jahren, Land der prägenden Jahre,
 Erst-/Zweitsprache), `INS.*` (Hauptinstrument, weitere Instrumente `INS.instrument_2` bis
 `_4`, Anzahl `INS.num_instruments`, Unterrichtsbeginn), `UEB.*` (Minuten pro
-Woche einzeln/Ensemble), `JAJ/MIQ/BAT/MDT.ability` und die Subskalen von CCM, GMS,
+Woche einzeln/Ensemble), `JAJ/MIQ/BAT/RAT/MPT.ability` und die Subskalen von CCM, GMS,
 TOM, GRT, MHE und SES. Nicht erreichte Module sind `NA`.
 
 Der DMT hat keinen Ability-Wert. Seine Trial-Daten stehen in `r$DMT` und

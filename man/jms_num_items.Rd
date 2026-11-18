@@ -5,7 +5,7 @@
 \alias{jms_num_items}
 \title{Item numbers of the tests}
 \format{
-An object of class \code{integer} of length 4.
+An object of class \code{integer} of length 5.
 }
 \usage{
 jms_num_items

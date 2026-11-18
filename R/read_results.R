@@ -8,7 +8,8 @@
 #' * DEG variables, main instrument, up to three further instruments and
 #'   start of lessons on the main instrument (INS),
 #' * lesson minutes per week, individual and ensemble (UEB),
-#' * the ability score of each adaptive test (`JAJ`, `MIQ`, `BAT`, `MDT`),
+#' * the ability score of each adaptive test (`JAJ`, `MIQ`, `BAT`, `RAT`,
+#'   `MPT`),
 #' * all subscales of the questionnaires in `scales`.
 #'
 #' Modules a participant did not reach are `NA`. DMT trials are best read
@@ -62,7 +63,9 @@ deg_vars <- function(deg) {
   gender <- na_if_null(deg$Gender)
   list(
     DEG.gender = gender,
-    DEG.gender_label = gender_labels[gender],
+    # as.integer(): indexing with a logical NA would return four NAs
+    # (one row per label) for sessions without DEG.
+    DEG.gender_label = gender_labels[as.integer(gender)],
     DEG.birth_month = birth[1],
     DEG.birth_year = birth[2],
     DEG.age_months = na_if_null(deg$Age),
@@ -101,7 +104,7 @@ ueb_vars <- function(ueb) {
 }
 
 ability_vars <- function(r) {
-  tests <- c("JAJ", "MIQ", "BAT", "MDT")
+  tests <- c("JAJ", "MIQ", "BAT", "RAT", "MPT")
   vals <- lapply(tests, function(t) {
     a <- r[[t]]$ability
     if (is.null(a)) NA_real_ else as.numeric(a)

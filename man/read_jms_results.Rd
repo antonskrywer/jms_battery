@@ -33,7 +33,8 @@ and end time, number of resumptions),
 \item DEG variables, main instrument, up to three further instruments and
 start of lessons on the main instrument (INS),
 \item lesson minutes per week, individual and ensemble (UEB),
-\item the ability score of each adaptive test (\code{JAJ}, \code{MIQ}, \code{BAT}, \code{MDT}),
+\item the ability score of each adaptive test (\code{JAJ}, \code{MIQ}, \code{BAT}, \code{RAT},
+\code{MPT}),
 \item all subscales of the questionnaires in \code{scales}.
 }
 }

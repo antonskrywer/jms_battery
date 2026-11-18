@@ -1,11 +1,11 @@
 Package: jmsbattery
 Title: JMS Test Battery (psychTestR)
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: person("Anton", "Schreiber", email = "anton.schreiber@uni-hamburg.de", role = c("aut", "cre"))
 Description: psychTestR test battery for the JMS study (DELTA-M): demographics
     (DEG), instrument and start of lessons, the Drum Machine Test (DMT),
-    working memory (JAJ), matrix reasoning (MIQ), beat perception (CA-BAT)
-    and melodic discrimination (MDT), followed by questionnaires (lesson
+    working memory (JAJ), matrix reasoning (MIQ), beat perception (CA-BAT),
+    rhythm ability (RAT) and mistuning perception (MPT), followed by questionnaires (lesson
     time, CCM, Gold-MSI short version, TOM, GRT, MHE, SES) that can also
     be filled in later at home.
 License: MIT + file LICENSE
@@ -18,7 +18,8 @@ Imports:
     psyquest (>= 1.6.1),
     JAJ (>= 0.1.7),
     cabat (>= 0.12.1),
-    mdt (>= 2.8.0),
+    RAT (>= 0.1.6),
+    mpt (>= 0.14.0),
     shiny,
     shinythemes,
     purrr,
@@ -31,7 +32,8 @@ Remotes:
     klausfrieler/psyquest,
     klausfrieler/JAJ,
     pmcharrison/cabat,
-    pmcharrison/mdt,
+    klausfrieler/RAT,
+    pmcharrison/mpt,
     antonskrywer/DMT
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

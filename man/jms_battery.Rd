@@ -26,7 +26,7 @@ jms_battery(
 \item{researcher_email}{Contact address shown on problem pages.}
 
 \item{num_items}{Named integer vector with item numbers for JAJ, MIQ,
-BAT, MDT.}
+BAT, RAT, MPT.}
 
 \item{dmt_allocation}{Named integer vector with the number of DMT main
 trials per stratum, see \link{jms_dmt_allocation}.}
@@ -51,13 +51,13 @@ with a warning instead of an error.}
 \item{...}{Further arguments passed to \code{\link[psychTestR:test_options]{psychTestR::test_options()}}.}
 }
 \description{
-Order (Stand 2026-11-12):
+Order (Stand 2026-11-18):
 \enumerate{
 \item Welcome, participation code (8 digits with check digits)
 \item DEG (age, gender, country of formative years, first and second
 language) and INS (main instrument, up to three further instruments,
 start of lessons on the main instrument)
-\item Tests: DMT, JAJ, MIQ, CA-BAT, MDT
+\item Tests: DMT, JAJ, MIQ, CA-BAT, RAT, MPT
 \item Landing page announcing the questionnaires
 \item Questionnaires: UEB (lesson minutes per week, individual and ensemble)
 and CCM, GMS (23 items of the short version), TOM, GRT,
